@@ -1,16 +1,16 @@
 package com.busqueaqui.viagens.models;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Airline {
+public class Airport {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -19,15 +19,17 @@ public class Airline {
 	@NotBlank
 	private String name;
 	
-	@OneToMany(mappedBy="airline")
-	private List<Office> office;
+	@NotBlank
+	private String code;
+	
+	@ManyToOne
+	@JoinColumn(name="route_id", nullable=false)
+	private Route route;
+	
+	@OneToOne
+	@JoinColumn(name = "Address_id")
+	private Address address;
 
-	@OneToMany(mappedBy="airline")
-	private List<Route> route;
-	
-	@OneToMany(mappedBy="airline")
-	private List<Airplane> airplane;
-	
 	public Long getId() {
 		return id;
 	}
@@ -44,30 +46,29 @@ public class Airline {
 		this.name = name;
 	}
 
-	public List<Office> getOffice() {
-		return office;
+	public String getCode() {
+		return code;
 	}
 
-	public void setOffice(List<Office> office) {
-		this.office = office;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public List<Route> getRoute() {
+	public Route getRoute() {
 		return route;
 	}
 
-	public void setRoute(List<Route> route) {
+	public void setRoute(Route route) {
 		this.route = route;
 	}
 
-	public List<Airplane> getAirplane() {
-		return airplane;
+	public Address getAddress() {
+		return address;
 	}
 
-	public void setAirplane(List<Airplane> airplane) {
-		this.airplane = airplane;
+	public void setAddress(Address address) {
+		this.address = address;
 	}
-
 	
 	
 }

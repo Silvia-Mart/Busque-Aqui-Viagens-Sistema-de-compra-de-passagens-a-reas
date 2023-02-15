@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-public class Office {
+public class Route {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -24,12 +24,12 @@ public class Office {
 	@NotBlank
 	private String description;
 	
-	@OneToMany(mappedBy="office")
-	private List<Employee> employee;
-	
 	@ManyToOne
 	@JoinColumn(name="airline_id", nullable=false)
 	private Airline airline;
+	
+	@OneToMany(mappedBy="route")
+	private List<Airport> airport;
 
 	public Long getId() {
 		return id;
@@ -55,14 +55,6 @@ public class Office {
 		this.description = description;
 	}
 
-	public List<Employee> getEmployee() {
-		return employee;
-	}
-
-	public void setEmployee(List<Employee> employee) {
-		this.employee = employee;
-	}
-
 	public Airline getAirline() {
 		return airline;
 	}
@@ -70,5 +62,14 @@ public class Office {
 	public void setAirline(Airline airline) {
 		this.airline = airline;
 	}
+
+	public List<Airport> getAirport() {
+		return airport;
+	}
+
+	public void setAirport(List<Airport> airport) {
+		this.airport = airport;
+	}
+	
 
 }

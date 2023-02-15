@@ -6,12 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 
 @Entity
-public class Person {
+public abstract class Person {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -36,6 +38,10 @@ public class Person {
 	@NotBlank
 	@Past
 	private Date birthDate;
+	
+	@OneToOne
+	@JoinColumn(name = "Address_id")
+	private Address address;
 
 	public Long getId() {
 		return id;
@@ -92,7 +98,13 @@ public class Person {
 	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
-	
-	
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 	
 }
